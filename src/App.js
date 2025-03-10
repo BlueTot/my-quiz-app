@@ -1439,6 +1439,7 @@ export default function QuizApp() {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [userInput, setUserInput] = useState("");
   const [feedback, setFeedback] = useState("");
+  const [wrongAttempts, setWrongAttempts] = useState(0);
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
 
   useEffect(() => {
@@ -1451,17 +1452,23 @@ export default function QuizApp() {
     setSelectedAnswer(null);
     setUserInput("");
     setFeedback("");
+    setWrongAttempts(0);
     setShowCorrectAnswer(false);
   }
 
   function handleMultipleChoiceAnswer(index) {
-    setSelectedAnswer(index);
     if (index === currentQuestion.answer) {
       setFeedback("✅ Correct!");
+      setShowCorrectAnswer(false);
     } else {
-      setFeedback("❌ Incorrect, try again!");
-      setShowCorrectAnswer(true);
+      const newWrongAttempts = wrongAttempts + 1;
+      setFeedback(`❌ Incorrect! (${newWrongAttempts}/3)`);
+      setWrongAttempts(newWrongAttempts);
+      if (newWrongAttempts >= 3) {
+        setShowCorrectAnswer(true);
+      }
     }
+    setSelectedAnswer(index);
   }
 
   function handleTextAnswer() {
@@ -1469,8 +1476,12 @@ export default function QuizApp() {
       setFeedback("✅ Correct!");
       setShowCorrectAnswer(false);
     } else {
-      setFeedback("❌ Incorrect, try again!");
-      setShowCorrectAnswer(true);
+      const newWrongAttempts = wrongAttempts + 1;
+      setFeedback(`❌ Incorrect! (${newWrongAttempts}/3)`);
+      setWrongAttempts(newWrongAttempts);
+      if (newWrongAttempts >= 3) {
+        setShowCorrectAnswer(true);
+      }
     }
   }
 
