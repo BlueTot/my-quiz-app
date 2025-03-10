@@ -2,7 +2,7 @@
     "name": "my-quiz-app",
     "version": "0.1.0",
     "private": true,
-    "homepage": "https://BlueTot.github.io/my-quiz-app",
+    "homepage": "https://bluetot.github.io/my-quiz-app",
     "dependencies": {
         "@shadcn/ui": "^0.0.4",
         "@testing-library/dom": "^10.4.0",
