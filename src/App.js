@@ -1434,6 +1434,8 @@ const questions = [
   }
 ];
 
+console.log(questions.length)
+
 export default function QuizApp() {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -1443,6 +1445,7 @@ export default function QuizApp() {
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
 
   useEffect(() => {
+    document.title = `CS133 Revision Quiz - ${questions.length} Questions`
     loadNewQuestion();
   }, []);
 
