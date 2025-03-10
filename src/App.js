@@ -26,6 +26,19 @@ function Button({ children, onClick, className }) {
   );
 }
 
+// Custom Input component
+function Input({ value, onChange, placeholder, className }) {
+  return (
+    <input
+      type="text"
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      className={`border rounded-lg p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 ${className}`}
+    />
+  );
+}
+
 const questions = [
   {
     question: "What is the definition of a profession?",
@@ -1026,45 +1039,406 @@ const questions = [
       "Customer complaints"
     ],
     answer: 2
+  },
+
+  // Abbreviation–style questions (18)
+  {
+    question: "What does GDPR stand for?",
+    answer: "General Data Protection Regulation"
+  },
+  {
+    question: "What does ICO stand for?",
+    answer: "Information Commissioner's Office"
+  },
+  {
+    question: "What does RIPA stand for?",
+    answer: "Regulation of Investigatory Powers Act"
+  },
+  {
+    question: "What does CPD stand for?",
+    answer: "Continuing Professional Development"
+  },
+  {
+    question: "What does CITP stand for?",
+    answer: "Chartered Information Technology Practitioner"
+  },
+  {
+    question: "What does IEng stand for?",
+    answer: "Incorporated Engineer"
+  },
+  {
+    question: "What does CEng stand for?",
+    answer: "Chartered Engineer"
+  },
+  {
+    question: "What does EngTech stand for?",
+    answer: "Engineering Technician"
+  },
+  {
+    question: "What does EUR ING stand for?",
+    answer: "European Engineer"
+  },
+  {
+    question: "What does CSci stand for?",
+    answer: "Chartered Scientist"
+  },
+  {
+    question: "What does RSci stand for?",
+    answer: "Registered Scientist"
+  },
+  {
+    question: "What does CSciTeach stand for?",
+    answer: "Chartered Science Teacher"
+  },
+  {
+    question: "What does RSciTeach stand for?",
+    answer: "Registered Science Teacher"
+  },
+  {
+    question: "What does RIDDOR stand for?",
+    answer: "Reporting of Injuries, Diseases and Dangerous Occurrences Regulations"
+  },
+  {
+    question: "What does IPO stand for?",
+    answer: "Intellectual Property Office"
+  },
+  {
+    question: "What does WIPO stand for?",
+    answer: "World Intellectual Property Organisation"
+  },
+  {
+    question: "What does DCF stand for?",
+    answer: "Discounted Cash Flow"
+  },
+  {
+    question: "What does HSE stand for?",
+    answer: "Health and Safety Executive"
+  },
+
+  // Definition questions (non‑abbreviation) (82)
+  {
+    question: "What is the term for a vocation requiring prolonged training and formal qualification?",
+    answer: "Profession"
+  },
+  {
+    question: "What is the one‑word term for the UK's lower legislative chamber?",
+    answer: "Commons"
+  },
+  {
+    question: "What is the one‑word term for the UK's upper legislative chamber?",
+    answer: "Lords"
+  },
+  {
+    question: "What is the term for a proposal for new legislation in Parliament?",
+    answer: "Bill"
+  },
+  {
+    question: "What is the one‑word term for the final step in a bill becoming law?",
+    answer: "Assent"
+  },
+  {
+    question: "What is the one‑word term for a detailed examination of a bill in Parliament?",
+    answer: "Committee"
+  },
+  {
+    question: "What is the one‑word term for the UK's constitution, given its unwritten nature?",
+    answer: "Uncodified"
+  },
+  {
+    question: "What is the one‑word term for an EU legal instrument that is self‑executing?",
+    answer: "Regulation"
+  },
+  {
+    question: "What is the one‑word term for an EU legislative act that sets objectives for member states?",
+    answer: "Directive"
+  },
+  {
+    question: "What is the one‑word term for a court process to challenge a decision?",
+    answer: "Appeal"
+  },
+  {
+    question: "What is the one‑word term for the minor court that handles less serious cases in the UK?",
+    answer: "Magistrates"
+  },
+  {
+    question: "What is the one‑word term for unauthorized access to computer systems?",
+    answer: "Hacking"
+  },
+  {
+    question: "What is the one‑word term for the act of altering computer data without permission?",
+    answer: "Tampering"
+  },
+  {
+    question: "What is the one‑word term for a legal protection granted to creative works?",
+    answer: "Copyright"
+  },
+  {
+    question: "What is the one‑word term for a legally binding promise between two parties?",
+    answer: "Contract"
+  },
+  {
+    question: "What is the one‑word term for a temporary legal right granted to an inventor?",
+    answer: "Patent"
+  },
+  {
+    question: "What is the one‑word term for a distinctive sign used to identify a brand?",
+    answer: "Trademark"
+  },
+  {
+    question: "What is the one‑word term for the process of recording all transactions twice in accounting?",
+    answer: "Double-entry"
+  },
+  {
+    question: "What is the one‑word term for money received by a company?",
+    answer: "Revenue"
+  },
+  {
+    question: "What is the one‑word term for money spent by a company?",
+    answer: "Expense"
+  },
+  {
+    question: "What is the one‑word term for a financial forecast in a business?",
+    answer: "Budget"
+  },
+  {
+    question: "What is the one‑word term for the detailed financial record of a company?",
+    answer: "Accounts"
+  },
+  {
+    question: "What is the one‑word term for a document outlining a company's operating rules?",
+    answer: "Articles"
+  },
+  {
+    question: "What is the one‑word term for the ratio of loan capital to equity?",
+    answer: "Gearing"
+  },
+  {
+    question: "What is the one‑word term for a formal complaint about professional behavior?",
+    answer: "Grievance"
+  },
+  {
+    question: "What is the one‑word term for an official warning or penalty for professional misconduct?",
+    answer: "Sanction"
+  },
+  {
+    question: "What is the one‑word term for the practice of reporting wrongdoing within an organization?",
+    answer: "Whistleblowing"
+  },
+  {
+    question: "What is the one‑word term for the act of securely transmitting data over a network?",
+    answer: "Encryption"
+  },
+  {
+    question: "What is the one‑word term for a legal permission to use software?",
+    answer: "Licence"
+  },
+  {
+    question: "What is the one‑word term for a fundamental system of laws guiding a nation?",
+    answer: "Constitution"
+  },
+  {
+    question: "What is the one‑word term for a law passed by Parliament?",
+    answer: "Statute"
+  },
+  {
+    question: "What is the one‑word term for the process of making government information available to the public?",
+    answer: "Disclosure"
+  },
+  {
+    question: "What is the one‑word term for a temporary team created to achieve a specific goal?",
+    answer: "Project"
+  },
+  {
+    question: "What is the one‑word term for the hierarchical arrangement within an organization?",
+    answer: "Structure"
+  },
+  {
+    question: "What is the one‑word term for a grouping of similar tasks within a company?",
+    answer: "Department"
+  },
+  {
+    question: "What is the one‑word term for a legally recognized business entity?",
+    answer: "Company"
+  },
+  {
+    question: "What is the one‑word term for a document that shows a company's financial position at a given time?",
+    answer: "BalanceSheet"
+  },
+  {
+    question: "What is the one‑word term for the process of determining the present value of future cash flows?",
+    answer: "Discounting"
+  },
+  {
+    question: "What is the one‑word term for a business formed by two or more individuals?",
+    answer: "Partnership"
+  },
+  {
+    question: "What is the one‑word term for the illegal activity of computer‑related offenses?",
+    answer: "Cybercrime"
+  },
+  {
+    question: "What is the one‑word term for the process of acquiring new skills in a professional context?",
+    answer: "Training"
+  },
+  {
+    question: "What is the one‑word term for the set of standards guiding professional behavior?",
+    answer: "Ethics"
+  },
+  {
+    question: "What is the one‑word term for the report that led to the 1974 health and safety legislation in the UK?",
+    answer: "Robens"
+  },
+  {
+    question: "What is the one‑word term for a formal change made to a bill or law?",
+    answer: "Amendment"
+  },
+  {
+    question: "What is the one‑word term for the highest court in the UK?",
+    answer: "Supreme"
+  },
+  {
+    question: "What is the one‑word term for the fundamental principle of fairness in law?",
+    answer: "Justice"
+  },
+  {
+    question: "What is the one‑word term for the official list of information a public authority must release?",
+    answer: "Publication"
+  },
+  {
+    question: "What is the one‑word term for the financial gain after expenses?",
+    answer: "Profit"
+  },
+  {
+    question: "What is the one‑word term for the value remaining after subtracting liabilities from assets?",
+    answer: "NetWorth"
+  },
+  {
+    question: "What is the one‑word term for predicting future financial trends?",
+    answer: "Forecasting"
+  },
+  {
+    question: "What is the one‑word term for the systematic recording of financial transactions?",
+    answer: "Bookkeeping"
+  },
+  {
+    question: "What is the one‑word term for the field of law addressing IT and digital issues?",
+    answer: "Cyberlaw"
+  },
+  {
+    question: "What is the one‑word term for the legal authorization required for intercepting data?",
+    answer: "Warrant"
+  },
+  {
+    question: "What is the one‑word term for the process of legally forming a business entity?",
+    answer: "Incorporation"
+  },
+  {
+    question: "What is the one‑word term for the document signed by initial shareholders when forming a company?",
+    answer: "Memorandum"
+  },
+  {
+    question: "What is the one‑word term for the act of converting a draft law into an enforceable one?",
+    answer: "Enactment"
+  },
+  {
+    question: "What is the one‑word term for the legal system based on precedents in the UK?",
+    answer: "Commonlaw"
+  },
+  {
+    question: "What is the one‑word term for the movement of money within a business?",
+    answer: "Cashflow"
+  },
+  {
+    question: "What is the one‑word term for the overall system of rules and practices in an organization?",
+    answer: "Governance"
+  },
+  {
+    question: "What is the one‑word term for an independent review of financial records?",
+    answer: "Audit"
+  },
+  {
+    question: "What is the one‑word term for a financial promise a company must fulfill?",
+    answer: "Obligation"
+  },
+  {
+    question: "What is the one‑word term for potential financial uncertainty in business?",
+    answer: "Risk"
+  },
+  {
+    question: "What is the one‑word term for a shortfall where liabilities exceed assets?",
+    answer: "Deficit"
+  },
+  {
+    question: "What is the one‑word term for a periodic evaluation of a company's performance?",
+    answer: "Review"
+  },
+  {
+    question: "What is the one‑word term for the process of legally dissolving a company?",
+    answer: "Liquidation"
+  },
+  {
+    question: "What is the one‑word term for a monetary penalty imposed for legal violations?",
+    answer: "Fine"
+  },
+  {
+    question: "What is the one‑word term for the right to obtain one's personal data under GDPR?",
+    answer: "Access"
+  },
+  {
+    question: "What is the one‑word term for the legal correction of inaccurate personal data?",
+    answer: "Rectification"
+  },
+  {
+    question: "What is the one‑word term for the right to transfer personal data to another provider?",
+    answer: "Portability"
+  },
+  {
+    question: "What is the one‑word term for the official set of rules governing professional conduct?",
+    answer: "Code"
+  },
+  {
+    question: "What is the one‑word term for the act of ending an employment contract legally?",
+    answer: "Termination"
+  },
+  {
+    question: "What is the one‑word term for regular payments made to employees?",
+    answer: "Salary"
+  },
+  {
+    question: "What is the one‑word term for the process of assigning tasks to employees?",
+    answer: "Delegation"
+  },
+  {
+    question: "What is the one‑word term for the process of attracting and selecting new staff?",
+    answer: "Recruitment"
+  },
+  {
+    question: "What is the one‑word term for extra pay awarded based on performance?",
+    answer: "Bonus"
+  },
+  {
+    question: "What is the one‑word term for a reduction in workforce due to restructuring?",
+    answer: "Redundancy"
+  },
+  {
+    question: "What is the one‑word term for the process of legally ending an employee's service due to performance issues?",
+    answer: "Dismissal"
+  },
+  {
+    question: "What is the one‑word term for the systematic oversight of company activities?",
+    answer: "Governance"
+  },
+  {
+    question: "What is the one‑word term for the process of planning and allocating a company's resources?",
+    answer: "Budgeting"
   }
 ];
 
-// const questions = [
-//   {
-//     question: "What are the three defining features of a profession?",
-//     options: [
-//       "Body of people, Self governing, Entry controlled",
-//       "High salary, Degree required, Government regulated",
-//       "Any job, No formal qualification, Open entry",
-//       "Work-life balance, High prestige, Public service"
-//     ],
-//     answer: 0
-//   },
-//   {
-//     question: "What is the last step for a bill to become law in the UK?",
-//     options: [
-//       "House of Lords Approval",
-//       "Royal Assent",
-//       "Third Reading in Commons",
-//       "Public Referendum"
-//     ],
-//     answer: 1
-//   },
-//   {
-//     question: "Which UK body supervises data protection?",
-//     options: [
-//       "Information Commissioner's Office (ICO)",
-//       "British Computer Society (BCS)",
-//       "Science Council",
-//       "European Court of Justice"
-//     ],
-//     answer: 0
-//   }
-// ];
 
 export default function QuizApp() {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [userInput, setUserInput] = useState("");
   const [feedback, setFeedback] = useState("");
 
   useEffect(() => {
@@ -1075,12 +1449,21 @@ export default function QuizApp() {
     const randomIndex = Math.floor(Math.random() * questions.length);
     setCurrentQuestion(questions[randomIndex]);
     setSelectedAnswer(null);
+    setUserInput("");
     setFeedback("");
   }
 
-  function handleAnswer(index) {
+  function handleMultipleChoice(index) {
     setSelectedAnswer(index);
     if (index === currentQuestion.answer) {
+      setFeedback("✅ Correct!");
+    } else {
+      setFeedback("❌ Incorrect, try again!");
+    }
+  }
+
+  function handleTextSubmit() {
+    if (userInput.trim().toLowerCase() === currentQuestion.answer.toLowerCase()) {
       setFeedback("✅ Correct!");
     } else {
       setFeedback("❌ Incorrect, try again!");
@@ -1095,21 +1478,37 @@ export default function QuizApp() {
             <>
               <h2 className="text-xl font-semibold">{currentQuestion.question}</h2>
               <div className="mt-4 flex flex-col gap-2">
-                {currentQuestion.options.map((option, index) => (
-                  <Button
-                    key={index}
-                    className={`w-full ${
-                      selectedAnswer === index
-                        ? index === currentQuestion.answer
-                          ? "bg-green-500"
-                          : "bg-red-500"
-                        : ""
-                    }`}
-                    onClick={() => handleAnswer(index)}
-                  >
-                    {option}
-                  </Button>
-                ))}
+                {currentQuestion.options ? (
+                  // Multiple-choice rendering
+                  currentQuestion.options.map((option, index) => (
+                    <Button
+                      key={index}
+                      className={`w-full ${selectedAnswer === index
+                          ? index === currentQuestion.answer
+                            ? "bg-green-500"
+                            : "bg-red-500"
+                          : ""
+                        }`}
+                      onClick={() => handleMultipleChoice(index)}
+                    >
+                      {option}
+                    </Button>
+                  ))
+                ) : (
+                  // Free-text input rendering
+                  <>
+                    <Input
+                      type="text"
+                      className="w-full p-2 border rounded"
+                      value={userInput}
+                      onChange={(e) => setUserInput(e.target.value)}
+                      placeholder="Type your answer here..."
+                    />
+                    <Button className="mt-2 bg-blue-500" onClick={handleTextSubmit}>
+                      Submit
+                    </Button>
+                  </>
+                )}
               </div>
               <p className="mt-4 font-bold">{feedback}</p>
               <Button className="mt-4 bg-gray-700 hover:bg-gray-800" onClick={loadNewQuestion}>
@@ -1122,4 +1521,56 @@ export default function QuizApp() {
     </div>
   );
 }
+
+//   function loadNewQuestion() {
+//     const randomIndex = Math.floor(Math.random() * questions.length);
+//     setCurrentQuestion(questions[randomIndex]);
+//     setSelectedAnswer(null);
+//     setFeedback("");
+//   }
+
+//   function handleAnswer(index) {
+//     setSelectedAnswer(index);
+//     if (index === currentQuestion.answer) {
+//       setFeedback("✅ Correct!");
+//     } else {
+//       setFeedback("❌ Incorrect, try again!");
+//     }
+//   }
+
+//   return (
+//     <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100">
+//       <Card className="max-w-md w-full text-center p-4">
+//         <CardContent>
+//           {currentQuestion && (
+//             <>
+//               <h2 className="text-xl font-semibold">{currentQuestion.question}</h2>
+//               <div className="mt-4 flex flex-col gap-2">
+//                 {currentQuestion.options.map((option, index) => (
+//                   <Button
+//                     key={index}
+//                     className={`w-full ${
+//                       selectedAnswer === index
+//                         ? index === currentQuestion.answer
+//                           ? "bg-green-500"
+//                           : "bg-red-500"
+//                         : ""
+//                     }`}
+//                     onClick={() => handleAnswer(index)}
+//                   >
+//                     {option}
+//                   </Button>
+//                 ))}
+//               </div>
+//               <p className="mt-4 font-bold">{feedback}</p>
+//               <Button className="mt-4 bg-gray-700 hover:bg-gray-800" onClick={loadNewQuestion}>
+//                 Next Question
+//               </Button>
+//             </>
+//           )}
+//         </CardContent>
+//       </Card>
+//     </div>
+//   );
+// }
 
