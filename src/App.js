@@ -1434,12 +1434,12 @@ const questions = [
   }
 ];
 
-
 export default function QuizApp() {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [userInput, setUserInput] = useState("");
   const [feedback, setFeedback] = useState("");
+  const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
 
   useEffect(() => {
     loadNewQuestion();
@@ -1451,22 +1451,26 @@ export default function QuizApp() {
     setSelectedAnswer(null);
     setUserInput("");
     setFeedback("");
+    setShowCorrectAnswer(false);
   }
 
-  function handleMultipleChoice(index) {
+  function handleMultipleChoiceAnswer(index) {
     setSelectedAnswer(index);
     if (index === currentQuestion.answer) {
       setFeedback("✅ Correct!");
     } else {
       setFeedback("❌ Incorrect, try again!");
+      setShowCorrectAnswer(true);
     }
   }
 
-  function handleTextSubmit() {
+  function handleTextAnswer() {
     if (userInput.trim().toLowerCase() === currentQuestion.answer.toLowerCase()) {
       setFeedback("✅ Correct!");
+      setShowCorrectAnswer(false);
     } else {
       setFeedback("❌ Incorrect, try again!");
+      setShowCorrectAnswer(true);
     }
   }
 
@@ -1477,40 +1481,46 @@ export default function QuizApp() {
           {currentQuestion && (
             <>
               <h2 className="text-xl font-semibold">{currentQuestion.question}</h2>
-              <div className="mt-4 flex flex-col gap-2">
-                {currentQuestion.options ? (
-                  // Multiple-choice rendering
-                  currentQuestion.options.map((option, index) => (
+
+              {currentQuestion.options ? (
+                // Multiple-choice questions
+                <div className="mt-4 flex flex-col gap-2">
+                  {currentQuestion.options.map((option, index) => (
                     <Button
                       key={index}
-                      className={`w-full ${selectedAnswer === index
+                      className={`w-full ${
+                        selectedAnswer === index
                           ? index === currentQuestion.answer
                             ? "bg-green-500"
                             : "bg-red-500"
                           : ""
-                        }`}
-                      onClick={() => handleMultipleChoice(index)}
+                      }`}
+                      onClick={() => handleMultipleChoiceAnswer(index)}
                     >
                       {option}
                     </Button>
-                  ))
-                ) : (
-                  // Free-text input rendering
-                  <>
-                    <Input
-                      type="text"
-                      className="w-full p-2 border rounded"
-                      value={userInput}
-                      onChange={(e) => setUserInput(e.target.value)}
-                      placeholder="Type your answer here..."
-                    />
-                    <Button className="mt-2 bg-blue-500" onClick={handleTextSubmit}>
-                      Submit
-                    </Button>
-                  </>
-                )}
-              </div>
+                  ))}
+                </div>
+              ) : (
+                // Open-ended questions
+                <div className="mt-4">
+                  <Input
+                    value={userInput}
+                    onChange={(e) => setUserInput(e.target.value)}
+                    placeholder="Type your answer..."
+                  />
+                  <Button className="mt-2 bg-blue-500 hover:bg-blue-600" onClick={handleTextAnswer}>
+                    Check Answer
+                  </Button>
+                </div>
+              )}
+
               <p className="mt-4 font-bold">{feedback}</p>
+
+              {showCorrectAnswer && (
+                <p className="mt-2 text-red-500">✅ Correct Answer: {currentQuestion.answer}</p>
+              )}
+
               <Button className="mt-4 bg-gray-700 hover:bg-gray-800" onClick={loadNewQuestion}>
                 Next Question
               </Button>
@@ -1521,56 +1531,3 @@ export default function QuizApp() {
     </div>
   );
 }
-
-//   function loadNewQuestion() {
-//     const randomIndex = Math.floor(Math.random() * questions.length);
-//     setCurrentQuestion(questions[randomIndex]);
-//     setSelectedAnswer(null);
-//     setFeedback("");
-//   }
-
-//   function handleAnswer(index) {
-//     setSelectedAnswer(index);
-//     if (index === currentQuestion.answer) {
-//       setFeedback("✅ Correct!");
-//     } else {
-//       setFeedback("❌ Incorrect, try again!");
-//     }
-//   }
-
-//   return (
-//     <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100">
-//       <Card className="max-w-md w-full text-center p-4">
-//         <CardContent>
-//           {currentQuestion && (
-//             <>
-//               <h2 className="text-xl font-semibold">{currentQuestion.question}</h2>
-//               <div className="mt-4 flex flex-col gap-2">
-//                 {currentQuestion.options.map((option, index) => (
-//                   <Button
-//                     key={index}
-//                     className={`w-full ${
-//                       selectedAnswer === index
-//                         ? index === currentQuestion.answer
-//                           ? "bg-green-500"
-//                           : "bg-red-500"
-//                         : ""
-//                     }`}
-//                     onClick={() => handleAnswer(index)}
-//                   >
-//                     {option}
-//                   </Button>
-//                 ))}
-//               </div>
-//               <p className="mt-4 font-bold">{feedback}</p>
-//               <Button className="mt-4 bg-gray-700 hover:bg-gray-800" onClick={loadNewQuestion}>
-//                 Next Question
-//               </Button>
-//             </>
-//           )}
-//         </CardContent>
-//       </Card>
-//     </div>
-//   );
-// }
-
