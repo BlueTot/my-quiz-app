@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import axios from 'axios';
-// import { jwtDecode } from 'jwt-decode';
 
 // Custom Card component
 function Card({ children, className }) {
@@ -112,19 +110,6 @@ const Quiz = () => {
   const [numCorrectQs, setNumCorrectQs] = useState(0);
   const [canTryQuestion, setCanTryQuestion] = useState(true);
 
-  // const [token, setToken] = useState(null);
-  // const [user, setUser] = useState(null);
-  // const [username, setUsername] = useState(null);
-
-  // // Decode the JWT token and get the username
-  // useEffect(() => {
-  //   const token = localStorage.getItem('token');
-  //   if (token) {
-  //     const decodedToken = jwtDecode(token);
-  //     setUsername(decodedToken.username); // Assuming the username is stored in the token
-  //   }
-  // }, []);
-
 
   const [user, setUser] = useState(null);
 
@@ -150,93 +135,9 @@ const Quiz = () => {
     }
   };
 
-  // const [user, setUser] = useState(null);
-
-  // const fetchUserData = async () => {
-  //   const token = localStorage.getItem('token');
-  //   if (!token) return;
-  
-  //   try {
-  //     // Adjusted the URL to include the /auth prefix
-  //     const response = await fetch("http://localhost:5000/auth/user", {
-  //       method: "GET",
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     });
-  
-  //     const userData = await response.json();
-  //     if (response.ok) {
-  //       setUser(userData); // Save the user data in the state
-  //     } else {
-  //       console.error(userData.error); // Display error from backend if any
-  //     }
-  //   } catch (err) {
-  //     console.error("Error fetching user data", err);
-  //   }
-  // };
-
   useEffect(() => {
     fetchUserData(); // Fetch user data when the component loads
   }, []);
-
-  // // Login function
-  // async function login(username, password) {
-  //   try {
-  //     const res = await fetch("http://localhost:5000/auth/login", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({ username, password }),
-  //     });
-  //     const data = await res.json();
-  //     if (res.ok) {
-  //       setToken(data.token);
-  //       setUser(data.user);
-  //     } else {
-  //       alert(data.error);
-  //     }
-  //   } catch (err) {
-  //     console.error("Login error:", err);
-  //   }
-  // }
-
-  // // Register function
-  // async function register(username, password) {
-  //   try {
-  //     await fetch("http://localhost:5000/auth/register", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({ username, password }),
-  //     });
-  //     alert("Registration successful! Please login.");
-  //   } catch (err) {
-  //     console.error("Registration error:", err);
-  //   }
-  // }
-
-  // // Save user stats
-  // async function saveStats() {
-  //   if (!token) return;
-  //   await fetch("http://localhost:5000/stats/update", {
-  //     method: "POST",
-  //     headers: { 
-  //       "Content-Type": "application/json",
-  //       Authorization: token 
-  //     },
-  //     body: JSON.stringify({ numCorrectQs, numAnsweredQs }),
-  //   });
-  // }
-
-  // const fetchQuizzes = async () => {
-  //   try {
-  //     const token = localStorage.getItem('token');
-  //     const response = await axios.get('/api/quizzes', {
-  //       headers: { Authorization: token }
-  //     });
-  
-  //     console.log(response.data); // Display quiz data
-  //   } catch (err) {
-  //     console.error('Error fetching quizzes', err);
-  //   }
-  // };
 
 
   // fetch questions from public directory
