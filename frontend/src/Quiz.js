@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
+// import axios from 'axios';
+// import { jwtDecode } from 'jwt-decode';
 
 // Custom Card component
 function Card({ children, className }) {
@@ -125,6 +125,7 @@ const Quiz = () => {
   //   }
   // }, []);
 
+
   const [user, setUser] = useState(null);
 
   const fetchUserData = async () => {
@@ -148,6 +149,30 @@ const Quiz = () => {
       console.error("Error fetching user data", err);
     }
   };
+
+  // const [user, setUser] = useState(null);
+
+  // const fetchUserData = async () => {
+  //   const token = localStorage.getItem('token');
+  //   if (!token) return;
+  
+  //   try {
+  //     // Adjusted the URL to include the /auth prefix
+  //     const response = await fetch("http://localhost:5000/auth/user", {
+  //       method: "GET",
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     });
+  
+  //     const userData = await response.json();
+  //     if (response.ok) {
+  //       setUser(userData); // Save the user data in the state
+  //     } else {
+  //       console.error(userData.error); // Display error from backend if any
+  //     }
+  //   } catch (err) {
+  //     console.error("Error fetching user data", err);
+  //   }
+  // };
 
   useEffect(() => {
     fetchUserData(); // Fetch user data when the component loads
