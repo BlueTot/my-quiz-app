@@ -105,6 +105,7 @@ export default function QuizApp() {
   const [wrongAttempts, setWrongAttempts] = useState(0);
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
 
+  // fetch questions from public directory
   useEffect(() => {
     fetch(`${process.env.PUBLIC_URL}/questions2.json`) // Ensure this file is in "public/"
       .then((response) => {
@@ -119,11 +120,13 @@ export default function QuizApp() {
       .catch((error) => console.error("Error loading JSON:", error)); // Catch and log errors
   }, []);
 
+  // load new question, and set title
   useEffect(() => {
     document.title = `CS133 Revision Quiz - ${questions.length} Questions`;
     loadNewQuestion();
   }, [questions.length]);
 
+  // load new question
   function loadNewQuestion() {
     const randomIndex = Math.floor(Math.random() * questions.length);
     setCurrentQuestion(questions[randomIndex]);
@@ -134,6 +137,7 @@ export default function QuizApp() {
     setShowCorrectAnswer(false);
   }
 
+  // multiple choice answer
   function handleMultipleChoiceAnswer(index) {
     if (index === currentQuestion.answer) {
       setFeedback("✅ Correct!");
@@ -149,41 +153,26 @@ export default function QuizApp() {
     setSelectedAnswer(index);
   }
 
+  // text answer
   function handleTextAnswer() {
 
     const sortedAnswers = [...currentQuestion.answer].sort().map(item => item.toLowerCase())
     const sortedUserInput = [...userInput].sort().map(item => item.toLowerCase())
 
-    if (JSON.stringify(sortedAnswers) === JSON.stringify(sortedUserInput)) {
+    const intersection = sortedUserInput.filter(item => sortedAnswers.includes(item))
+    if (intersection.length == currentQuestion.answer.length) {
       setFeedback("✅ All answers correct!");
     } else {
-      setFeedback("❌ Some answers are incorrect.");
-      setShowCorrectAnswer(true);
+      const newWrongAttempts = wrongAttempts + 1;
+      setFeedback(`❌ ${intersection.length} answers are correct. (${newWrongAttempts}/3)`);
+      setWrongAttempts(newWrongAttempts);
+      if (newWrongAttempts >= 3) {
+        setShowCorrectAnswer(true);
+      }
     }
-    // const sortedCorrectAnswers = [...correctAnswers].sort();
-    // // Check if both sorted arrays are the same
-    // return JSON.stringify(sortedUserAnswers) === JSON.stringify(sortedCorrectAnswers);
-
-    // const sortedAnswers = currentQuestion.answer.slice().sort((a, b) => a - b);
-    // const sortedUserInput = userInput.slice().sort((a, b) => a - b);
-
-    // console.log(sortedAnswers);
-    // console.log(sortedUserInput);
-
-    // const sortedAnswers = currentQuestion.answer.sort()
-    // const sortedUserInput = userInput.sort()
-    // const correctness = sortedAnswers.map(
-    //   (correct, i) => sortedUserInput[i]?.trim().toLowerCase() === correct.toLowerCase()
-    // );
-
-    // if (correctness.every((isCorrect) => isCorrect)) {
-    //   setFeedback("✅ All answers correct!");
-    // } else {
-    //   setFeedback("❌ Some answers are incorrect.");
-    //   setShowCorrectAnswer(true);
-    // }
   }
 
+  // main html return statement
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100">
       <Card className="max-w-md w-full text-center p-4">
