@@ -1,3 +1,0 @@
-Remember to run this command in powershell first:
-
-$env:NODE_OPTIONS="--openssl-legacy-provider"
