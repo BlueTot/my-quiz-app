@@ -110,6 +110,57 @@ export default function QuizApp() {
   const [numCorrectQs, setNumCorrectQs] = useState(0);
   const [canTryQuestion, setCanTryQuestion] = useState(true);
 
+  const [token, setToken] = useState(null);
+  const [user, setUser] = useState(null);
+
+  // Login function
+  async function login(username, password) {
+    try {
+      const res = await fetch("http://localhost:5000/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setToken(data.token);
+        setUser(data.user);
+      } else {
+        alert(data.error);
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+    }
+  }
+
+  // Register function
+  async function register(username, password) {
+    try {
+      await fetch("http://localhost:5000/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+      alert("Registration successful! Please login.");
+    } catch (err) {
+      console.error("Registration error:", err);
+    }
+  }
+
+  // Save user stats
+  async function saveStats() {
+    if (!token) return;
+    await fetch("http://localhost:5000/stats/update", {
+      method: "POST",
+      headers: { 
+        "Content-Type": "application/json",
+        Authorization: token 
+      },
+      body: JSON.stringify({ numCorrectQs, numAnsweredQs }),
+    });
+  }
+
+
   // fetch questions from public directory
   useEffect(() => {
     fetch(`${process.env.PUBLIC_URL}/questions2.json`) // Ensure this file is in "public/"
