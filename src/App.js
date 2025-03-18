@@ -150,16 +150,38 @@ export default function QuizApp() {
   }
 
   function handleTextAnswer() {
-    const correctness = currentQuestion.answer.map(
-      (correct, i) => userInput[i]?.trim().toLowerCase() === correct.toLowerCase()
-    );
 
-    if (correctness.every((isCorrect) => isCorrect)) {
+    const sortedAnswers = [...currentQuestion.answer].sort().map(item => item.toLowerCase())
+    const sortedUserInput = [...userInput].sort().map(item => item.toLowerCase())
+
+    if (JSON.stringify(sortedAnswers) === JSON.stringify(sortedUserInput)) {
       setFeedback("✅ All answers correct!");
     } else {
       setFeedback("❌ Some answers are incorrect.");
       setShowCorrectAnswer(true);
     }
+    // const sortedCorrectAnswers = [...correctAnswers].sort();
+    // // Check if both sorted arrays are the same
+    // return JSON.stringify(sortedUserAnswers) === JSON.stringify(sortedCorrectAnswers);
+
+    // const sortedAnswers = currentQuestion.answer.slice().sort((a, b) => a - b);
+    // const sortedUserInput = userInput.slice().sort((a, b) => a - b);
+
+    // console.log(sortedAnswers);
+    // console.log(sortedUserInput);
+
+    // const sortedAnswers = currentQuestion.answer.sort()
+    // const sortedUserInput = userInput.sort()
+    // const correctness = sortedAnswers.map(
+    //   (correct, i) => sortedUserInput[i]?.trim().toLowerCase() === correct.toLowerCase()
+    // );
+
+    // if (correctness.every((isCorrect) => isCorrect)) {
+    //   setFeedback("✅ All answers correct!");
+    // } else {
+    //   setFeedback("❌ Some answers are incorrect.");
+    //   setShowCorrectAnswer(true);
+    // }
   }
 
   return (
@@ -188,7 +210,9 @@ export default function QuizApp() {
               <p className="mt-4 font-bold">{feedback}</p>
 
               {showCorrectAnswer && (
-                <p className="mt-2 text-red-500">✅ Correct Answer: {currentQuestion.answer}</p>
+                <p className="mt-2 text-red-500">✅ Correct Answer: {Array.isArray(currentQuestion.answer) ? 
+                                                                      currentQuestion.answer.join(", ") : 
+                                                                      currentQuestion.answer}</p>
               )}
 
               <Button className="mt-4 bg-gray-700 hover:bg-gray-800" onClick={loadNewQuestion}>
